@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Agorava Project</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="http://agorava.org/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <style>
+      body {
+        padding-top: 80px;
+      }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://agorava.org/javascripts/bootstrap/collapse.js" type="text/javascript"></script>
+    <script src="http://agorava.org/javascripts/bootstrap/dropdown.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar-header">
+        <div class="github-banner">
+          <a href="https://github.com/agorava">
+            <img alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" style="position: absolute; top: 0; right: 0; border: 0;z-index: 900;">
+          </a>
+        </div>
+        <a class="btn navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+          <span class="sr-only">
+            Toggle navigation
+          </span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="navbar-brand" href="http://agorava.org">Agorava</a>
+      </div>
+      <div class="navbar-collapse collaspe">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="http://agorava.org/">Home</a>
+          </li>
+          <li></li>
+          <li>
+            <a href="http://agorava.org/news/">Blog</a>
+          </li>
+          <li>
+            <a href="http://agorava.org/contact-us/">Contact us</a>
+          </li>
+          <li>
+            <a href="http://agorava.org/contributing/">Contribute</a>
+          </li>
+          <li>
+            <a href="https://github.com/agorava" target="_BLANK">Source code</a>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Documentation
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="http://agorava.org/doc/getting-started">Getting Started</a>
+              </li>
+              <li>
+                <a href="http://agorava.org/doc/apidocs070" target="_BLANK">API/SPI Javadoc</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="http://agorava.org/calendar/">Calendar</a>
+          </li>
+        </ul>
+      </div>
+      <script>
+        var indexOfSharp = window.location.pathname.indexOf('#');
+        var pathname = indexOfSharp > 0 ? window.location.pathname.substring(0, indexOfSharp) : window.location.pathname;
+        var selector = "body > .navbar > .navbar-collapse a[href='http://agorava.org"+pathname+"']";
+        $(selector).closest("li").addClass("active");
+      </script>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="posts">
+            <article class="post">
+              <h1>
+                <a href="/news/2013/11/20/Agorava-0-7-0-released/">
+                  Agorava Core 0.7.0 released
+                </a>
+              </h1>
+              <div class="meta">
+                <strong>
+                  Posted by
+                  <span class="authors"> Antoine Sabot-Durand</span>
+                  on
+                  <span class="date">Nov 20, 2013</span>
+                  |
+                   <a href="http://agorava.org/news/2013/11/20/Agorava-0-7-0-released/#disqus_thread" data-disqus-identifier="b2a3aefe3a2a1b1652c11f95375b19d3a04d8da4">Comments</a>
+                </strong>
+              </div>
+              <div class="content">
+                <div class="paragraph">
+                <p>After 3 month of development, Agorava version 0.7.0 hit <a href="http://search.maven.org/#search%7Cga%7C1%7Cagorava:">Maven Central</a> today. It is from far the biggest evolution of the framework since its creation.
+                Let&#8217;s see what&#8217;s new in this release</p>
+                </div>
+                <div class="sect1">
+                <h2 id="_api_spi_stabilization">API &amp; SPI stabilization</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>Probably the most important point for Agorava future : the framework has now a clean <a href="/doc/apidocs070">API</a> (API and implementation were a bit mixed and moving a lot prior to that)</p>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_introduction_of_new_concepts">Introduction of new concepts</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>This version brings new concepts and tools that ease and rationalize OAuth interaction</p>
+                </div>
+                <div class="sect2">
+                <h3 id="_oauthlifecycleservice_a_single_entry_point_to_manage_oauth_dance">OAuthLifeCycleService : a single entry point to manage "OAuth Dance"</h3>
+                <div class="paragraph">
+                <p>OAuth initialization steps (the famous OAuth Dance) are now gathered in a single service bean : <a href="/doc/apidocs070/org/agorava/api/service/OAuthLifeCycleService.html"><code>OAuthLifeCycleService</code></a>.
+                The <code>startDanceFor()</code> and <code>endDance()</code> methods ease the OAuth 1.0a and 2.0 initialization life cycle.</p>
+                </div>
+                </div>
+                <div class="sect2">
+                <h3 id="_repositories_to_store_oauthsessions">Repositories to store OAuthSessions</h3>
+                <div class="paragraph">
+                <p>This version introduces <a href="/doc/apidocs070/org/agorava/api/storage/UserSessionRepository.html"><code>UserSessionRepository</code></a> which allows to handle and contain a collection of OAuthSession (connection to OAuth provider).
+                A main repository bean <a href="/doc/apidocs070/org/agorava/api/storage/GlobalRepository.html"><code>GlobalRepository</code></a> stored in CDI <code>@ApplicationScoped</code> contains all <code>UserSessionRepository</code> and is a convenient way to retrieve all OAuthSession on the server side for batch processing for instance.</p>
+                </div>
+                </div>
+                <div class="sect2">
+                <h3 id="_usersessionrepositoryresolver_and_sessionresolver">UserSessionRepositoryResolver and SessionResolver</h3>
+                <div class="paragraph">
+                <p>Depending on your use case <code>UserSessionRepository</code> (and their contained <code>OAuthSession</code>) can be store in different way. Thanks to <code>UserSessionRepositoryResolver</code> and <code>SessionResolver</code> you can define different way of storing and resolving repositories and session. Agora provide the following built-in resolver than can be activated in <code>Agorava.properties</code> configuration file. These built-in resolver are :</p>
+                </div>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p><strong>session</strong> : the <code>UserSessionRepository</code> is stored in Http Session (<code>@SessionScoped</code>) it was the Agorava behavior before version 0.7.x</p>
+                </li>
+                <li>
+                <p><strong>request</strong> : the <code>UserSessionRepository</code> is provided for the current Http Request (<code>@RequestScoped</code>) but you have to propagate the <code>repoid</code> url parameter with <code>UserSessionRepository.getId()</code> value to retrieve the repo at each request</p>
+                </li>
+                <li>
+                <p><strong>cookie</strong> : the <code>UserSessionRepository</code> is provided for the current Http Request (<code>@RequestScoped</code>), a cookie is used on user browser to keep the track of her <code>UserSessionRepository</code>. You can specify the lifetime of the cookie int he config</p>
+                </li>
+                <li>
+                <p><strong>application</strong> : the <code>UserSessionRepository</code> is provided for all the application time (<code>@ApplicationScoped</code>). Not suitable for a multi-user scenario but rather for desktop scenario or a web app providing a shared access to a unique Social Network</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_reducing_framework_dependencies">Reducing framework dependencies</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>This Agorava release reduced it&#8217;s dependencies to the minimum. The only dependecies are now :</p>
+                </div>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>Jackson library for JSon mapping</p>
+                </li>
+                <li>
+                <p>Deltaspike for CDI helpers.</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_ready_for_other_jsr_330_implementation">Ready for other JSR 330 implementation</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>Agorava core is now ready to have a new implementation for another JSR 330 compliant framework like Dagger, Guice or Spring.</p>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_want_to_give_a_try">Want to give a try ?</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>check our <a href="/doc/getting-started">Getting Started guide</a> and give us your feedback.</p>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_want_to_contribute">Want to contribute ?</h2>
+                <div class="sectionbody">
+                <div class="paragraph">
+                <p>We really need contribution on core, doc, existing modules or new modules. So don&#8217;t hesitate to join us :</p>
+                </div>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>IRC (#Agorava),</p>
+                </li>
+                <li>
+                <p>Twitter <a href="http://twitter.com/agoravaproj">@Agoravaproj</a></p>
+                </li>
+                <li>
+                <p>User Group: <a href="http://groups.google.com/group/agorava-dev">http://groups.google.com/group/agorava-dev</a></p>
+                </li>
+                <li>
+                <p>GitHub: <a href="https://github.com/agorava">https://github.com/agorava</a></p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                <div class="sect1">
+                <h2 id="_agorava_0_7_0_release_notes">Agorava 0.7.0 Release notes</h2>
+                <div class="sectionbody">
+                <div class="sect2">
+                <h3 id="_bug">Bug</h3>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-48">AGOVA-48</a>] - Remove Weld
+                Core dependency management from Weld-1.x profile</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-60">AGOVA-60</a>] - Test don&#8217;t pass
+                for OWB</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-61">AGOVA-61</a>] - SessionProducer
+                get activated when producerscope in not definied</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-62">AGOVA-62</a>] - Passivation
+                error for GlobalRepositoryImpl on GF / Weld 2.0.4</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-63">AGOVA-63</a>] - When using Weld
+                2.X on Wildfly 8 or Glassfish 4, looking for OAuthSession fails</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                <div class="sect2">
+                <h3 id="_enhancement">Enhancement</h3>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-38">AGOVA-38</a>] - Integrate Rest
+                and OAuth engine in core</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-49">AGOVA-49</a>] - Remove BOM from
+                parent</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-54">AGOVA-54</a>] - Adding support
+                of Raw JSON / XML response</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-55">AGOVA-55</a>] - Upgrade Jackson
+                to 2.X</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-56">AGOVA-56</a>] - Get rid of
+                Guava</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-57">AGOVA-57</a>] - Get rid of
+                Commons Codec</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-58">AGOVA-58</a>] - Gather testing
+                profile in parent POM</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-59">AGOVA-59</a>] - Use
+                RequestTuner to specialize request instead of creating specific
+                OAuthService</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                <div class="sect2">
+                <h3 id="_feature_request">Feature Request</h3>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-40">AGOVA-40</a>] - OAuthSession
+                production should be ready for all application type (not only Web with
+                HttpSession)</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-52">AGOVA-52</a>] - Support to
+                programmatically control callback URL pr auth request</p>
+                </li>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-53">AGOVA-53</a>] - OAuthComplete
+                Event is unstable as a User facing API</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                <div class="sect2">
+                <h3 id="_task">Task</h3>
+                <div class="ulist">
+                <ul>
+                <li>
+                <p>[<a href="https://issues.jboss.org/browse/AGOVA-7">AGOVA-7</a>] - Create API and
+                common IMPL for JSR 330 compliant framework</p>
+                </li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                </div>
+              </div>
+              <div class="footer">
+                <a href="/news/2013/11/20/Agorava-0-7-0-released/">Permalink</a>
+                |
+                 <a href="http://agorava.org/news/2013/11/20/Agorava-0-7-0-released/#disqus_thread" data-disqus-identifier="b2a3aefe3a2a1b1652c11f95375b19d3a04d8da4">Comments</a>
+                |
+                <span class="tags">
+                  <i class="icon-tags"></i>
+                  Tags :
+                  <a class="tag" href="/news/tags/CDI/">CDI</a>
+                  <a class="tag" href="/news/tags/JSR330/">JSR330</a>
+                  <a class="tag" href="/news/tags/announce/">announce</a>
+                </span>
+              </div>
+            </article>
+            <article class="post">
+              <h1>
+                <a href="/news/2012/06/22/Meet-Agorava-the-Social-Framework/">
+                  Meet Agorava, The Social Framework
+                </a>
+              </h1>
+              <div class="meta">
+                <strong>
+                  Posted by
+                  <span class="authors"> Antoine Sabot-Durand</span>
+                  on
+                  <span class="date">Jun 22, 2012</span>
+                  |
+                   <a href="http://agorava.org/news/2012/06/22/Meet-Agorava-the-Social-Framework/#disqus_thread" data-disqus-identifier="69a1846ed702cdf32308a36f80534c99b8b91cab">Comments</a>
+                </strong>
+              </div>
+              <div class="content">
+                <p><img src="http://agorava.org/images/logo.png" class="left" alt="" /></p>
+                <p>Did you ever looked for a nice solution in java to authenticate your users with their Twitter, Facebook or LinkedIn account ? Have you ever looked for a nice way to post tweets or Facebook updates from your Java application? Do you need to read your timeline or perform a search on a Social Media services from Java EE web application? If you answered yes to one of these questions Agorava is (or will be soon) the right answer to your needs.<br />
+                Agorava is the missing framework to deal with Social Media based on OAuth 1.0a and OAuth 2.0. It provides a way to authenticate on Social Media, use APIs and map <span class="caps">JSON</span> answers to Java pojo. It&#8217;ll have multiple implementations (like <span class="caps">CDI</span>, Java SE, <span class="caps">JSR</span> 330 supporting framework and others) to support your needs. Right now the only implementation is based on <span class="caps">CDI</span> but we&#8217;ll provide others in the coming months.</p>
+                <h3>Agorava genesis</h3>
+                <p>Agorava&#8217;s short history is important because it helps to understand the goals of our team. In March 2011 the project Seam Social was launched. This project was a collection of <span class="caps">CDI</span> beans and extension to support Social Network consuming. It lived inside Seam 3 project which was an ambitious JBoss project aimed to provide a rich ecosystem for Java EE 6 thru <span class="caps">CDI</span> extensions. For all kind of reasons we won&#8217;t develop here, Seam 3 project was stopped at the end of 2011 to create a new project around <span class="caps">CDI</span> ecosystem : <a href="https://cwiki.apache.org/confluence/display/DeltaSpike/Temporary+Documentation">Apache Deltaspike</a> (merging Seam 3, Apache <span class="caps">CODI</span> and others initiatives).<br />
+                In parallel of this event, a few people launched a <span class="caps">JCP</span> proposal on Social Media : <a href="http://jcp.org/en/jsr/detail?id=357">Java Social <span class="caps">JSR</span> 357</a>. Projects like Seam Social or <a href="http://java.net/projects/dalicore">DaliCore</a> were main influencers for this proposal. This proposal was voted down for all kind of reasons, but mainly because there wasn&#8217;t a real proof of concept (an implementation) behind it.<br />
+                So the conjunction of these 2 stories brought us to create a new project : start from Seam Social code to provide an implementation for Java Social with the goal to go back to <span class="caps">JCP</span> in the future. This project is also a experiment to answer the problem and challenges in creating a standard <span class="caps">API</span> for Social Media <span class="caps">API</span> for Java platform. Thus Agorava is born</p>
+                <h3>But most Social Media already have their own APIs. So why do we reinvent the wheel?</h3>
+                <p>Yes it&#8217;s true, but these social APIs are almost always in Javascript only and if it’s available in Java,  mostly its created by a third part or its build for one or few particular Social Media. So they are ok if you want to deal with <span class="caps">GUI</span> or simple manipulation. If you need to extend functionalities (crawl Twitter followers for instance or perform full text search on your Facebook Timeline) or build a mashup between different services those JS <span class="caps">API</span> would show their limit quickly.<br />
+                Having a vendor free solution to deal with these Services is also an advantage, we&#8217;ll try to implement all the available public APIs and provide similar functionalities across &#8220;all Social Media&#8221;.</p>
+                <h3>Agorava is already alive and active!</h3>
+                <p>Agorava can be used right now. You can test our demo application <a href="http://socializer.agorava.cloudbees.net/">Socializer</a> or fork the <a href="https://github.com/agorava/agorava-socializer">Socializer project on Github</a> and run it with a simple <code>mvn -Prun</code>.<br />
+                You already have some documentation on our <a href="https://docs.jboss.org/author/display/AGOVA">wiki</a> to start hacking our code so feel free to try it!<br />
+                Agorava project is live and growing day by day! It also have <a href="https://groups.google.com/forum/?fromgroups#!forum/agorava-dev">User Group</a> for anyone like to post doubts or know the progress of the project</p>
+                <h3>Project roadmap</h3>
+                <p>Right now we&#8217;re aiming a 0.5.0 release (the 0.5.0 <span class="caps">SNAPSHOT</span> is fully functional) during the summer. This version will be focused on <span class="caps">CDI</span> implementation only. Main objective of 0.5.0 are:</p>
+                <ul>
+                	<li>Support stateless architecture (right now an http session is needed to store user Oauth Tokens)</li>
+                </ul>
+                <p>Normally (except if people are ready to contribute and are not afraid of refactoring for version 1.0.0), we won&#8217;t work on existing modules (Twitter, Facebook, LinkedIn) since <span class="caps">API</span> could change in version 1.0.0 when we&#8217;ll integrate <span class="caps">JAX</span>-RS client framework.</p>
+                <p>Objective for 1.0.0 are:</p>
+                <ul>
+                	<li>Change <span class="caps">REST</span> engine for <span class="caps">JAX</span>-RS 2.0 client framework</li>
+                	<li>If necessary implement our own OAuth implementation on <span class="caps">JAX</span>-RS client Framework</li>
+                	<li>Provide compatibility with Weld-OSGi</li>
+                	<li>Java SE implementation</li>
+                	<li><span class="caps">JSR</span> 330 specific <span class="caps">API</span> and implementation (Guice or Spring)</li>
+                	<li>Finished Twitter, LinkedIn, Facebook Modules</li>
+                	<li>New modules?</li>
+                </ul>
+                <h3>If you want to contribute?</h3>
+                <p>Of course we need contributors to help us to make Agorava a better Social Media <span class="caps">API</span> for Java platform.</p>
+                <p>To contribute to, help or just follow the project you can:</p>
+                <ul>
+                	<li>join us on our <a href="http://groups.google.com/group/agorava-dev">Google Group</a></li>
+                	<li>Subscribe to our mailing list (same content as Group) by sending an empty mail to <a href="mailto:agorava-dev+subscribe@googlegroups.com">agorava-dev+subscribe@googlegroups.com</a></li>
+                	<li>join us on <span class="caps">IRC</span> on <code>chat.freenode.net</code> channel <code>#agorava</code></li>
+                	<li>post your issues, enhancement wishes or ideas on our <a href="https://issues.jboss.org/browse/AGOVA"><span class="caps">JIRA</span></a></li>
+                	<li>fork our project and send pull requests on <a href="https://github.com/agorava">Github</a></li>
+                	<li>follow us on Twitter <a href="http://twitter.com/agoravaproj">@agoravaproj</a></li>
+                	<li>spread the word&#8230;</li>
+                </ul>
+                <h3>Project Sponsors</h3>
+                <p>On this road we are not alone. Organizations help us every day to make Agorava a reality and a success. So we&#8217;d like to thanks :</p>
+                <ul>
+                	<li><a href="http://blog.ippon.fr">Ippon Technologies</a> (my employer) a French Consulting company that agreed for giving me time to work on Seam Social and now on Agorava</li>
+                	<li>JBoss (Red Hat) who hosted Seam Social and helped Agorava launch and continue to support us every day with Jira, Confluence and good advice. Special thanks to Jason, Pete, Lincoln and Dan.</li>
+                	<li>The <span class="caps">JCP</span>. Ok they voted down our <span class="caps">JSR</span> proposal but most of their critics were helpful and lead us to start Agorava. We&#8217;ll get back to them soon.</li>
+                	<li>Spring Source. Spring Social was the inspirer of Seam Social. I also borrowed a lot of code from Spring Social for Twitter, LinkedIn and Facebook connectors. Thank you guys.</li>
+                </ul>
+                <h3>Follow us</h3>
+                <p>If you like to keep track of the progress of Agorava following links help you</p>
+                <ul>
+                	<li>Website: <a href="http://agorava.org">http://agorava.org</a></li>
+                	<li>Twitter : <a href="http://twitter.com/AgoravaProj">@Agoravaproj</a></li>
+                	<li>User Group: <a href="http://groups.google.com/group/agorava-dev">http://groups.google.com/group/agorava-dev</a></li>
+                	<li>GitHub: <a href="https://github.com/agorava">https://github.com/agorava</a></li>
+                </ul>
+                <p>See you soon!</p>
+              </div>
+              <div class="footer">
+                <a href="/news/2012/06/22/Meet-Agorava-the-Social-Framework/">Permalink</a>
+                |
+                 <a href="http://agorava.org/news/2012/06/22/Meet-Agorava-the-Social-Framework/#disqus_thread" data-disqus-identifier="69a1846ed702cdf32308a36f80534c99b8b91cab">Comments</a>
+                |
+                <span class="tags">
+                  <i class="icon-tags"></i>
+                  Tags :
+                  <a class="tag" href="/news/tags/announce/">announce</a>
+                  <a class="tag" href="/news/tags/Socializer/">Socializer</a>
+                  <a class="tag" href="/news/tags/roadmap/">roadmap</a>
+                </span>
+              </div>
+            </article>
+          </div>
+          
+                      <script type="text/javascript">
+                      var disqus_shortname = 'agoravablog';
+                      (function () {
+                        var s = document.createElement('script'); s.async = true;
+                        s.src = "http://disqus.com/forums/agoravablog/count.js";
+                        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+                      }());
+                      </script>
+          <div class="visible-xs">
+            <ul class="pager">
+              <li class="previous disabled">
+                <a href="#">Previous</a>
+              </li>
+              <li class="disabled">
+                <a href="#">1 of 1</a>
+              </li>
+              <li class="next disabled">
+                <a href="#">Next</a>
+              </li>
+            </ul>
+          </div>
+          <div class="hidden-xs">
+            <ul class="pager">
+              <li class="disabled">
+                <a href="#">First</a>
+              </li>
+              <li class="disabled">
+                <a href="#">Previous</a>
+              </li>
+              <li class="active">
+                <a href="#">1 of 1</a>
+              </li>
+              <li class="disabled">
+                <a href="#">Next</a>
+              </li>
+              <li class="disabled">
+                <a href="#">Last</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="follow-scroll hidden-xs">
+            <div style="margin-bottom:20px;text-align:center;">
+              <a class="btn btn-default" href="http://agorava.org/news.atom">
+                Subscribe RSS
+              </a>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Tag Cloud
+                </h3>
+              </div>
+              <div class="panel-footer" style="text-align:justify;">
+                <div class="tag-cloud">
+                  <span class="tag tag-6">
+                    <a href="http://agorava.org/news/tags/CDI/">CDI</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Facebook/">Facebook</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/JSR330/">JSR330</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Jetty/">Jetty</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/LinkedIn/">LinkedIn</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Maven/">Maven</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/OAuth/">OAuth</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/OpenWebBeans/">OpenWebBeans</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/Socializer/">Socializer</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Solder/">Solder</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Twitter/">Twitter</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Weld/">Weld</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Wildfly/">Wildfly</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/announce/">announce</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/roadmap/">roadmap</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="visible-xs">
+            <div style="margin-bottom:20px;text-align:center;">
+              <a class="btn btn-default" href="http://agorava.org/news.atom">
+                Subscribe RSS
+              </a>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  Tag Cloud
+                </h3>
+              </div>
+              <div class="panel-footer" style="text-align:justify;">
+                <div class="tag-cloud">
+                  <span class="tag tag-6">
+                    <a href="http://agorava.org/news/tags/CDI/">CDI</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Facebook/">Facebook</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/JSR330/">JSR330</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Jetty/">Jetty</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/LinkedIn/">LinkedIn</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Maven/">Maven</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/OAuth/">OAuth</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/OpenWebBeans/">OpenWebBeans</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/Socializer/">Socializer</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Solder/">Solder</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Twitter/">Twitter</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Weld/">Weld</a>
+                  </span>
+                  <span class="tag tag-0">
+                    <a href="http://agorava.org/news/tags/Wildfly/">Wildfly</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/announce/">announce</a>
+                  </span>
+                  <span class="tag tag-2">
+                    <a href="http://agorava.org/news/tags/roadmap/">roadmap</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; Agorava 2014</p>
+      </footer>
+    </div>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount','UA-31280631-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+  </body>
+</html>
